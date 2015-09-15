@@ -1,0 +1,5 @@
+<hr/>
+<div class="navigation">
+<h2>${siteTitle}</h2>
+</div>
+<%include file="navbar.makoscrap"/>

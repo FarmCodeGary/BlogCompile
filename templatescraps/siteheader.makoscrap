@@ -1,0 +1,4 @@
+
+<h1 class="sitetitle">${siteTitle}</h1>
+<%include file="navbar.makoscrap"/>
+
