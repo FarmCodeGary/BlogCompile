@@ -1,15 +1,15 @@
 <div class="navigation">
 <p>
 % if remote:
-<a href="${rootUrl}">Home</a>
+<a href="${root_url}">Home</a>
 % else:
-<a href="${rootUrl}/index.html">Home</a>
+<a href="${root_url}/index.html">Home</a>
 % endif
 |
-<a href="${rootUrl}/blog/blog-index.html">All Posts</a>
+<a href="${root_url}/blog/blog-index.html">All Posts</a>
 |
-<a href="${rootUrl}/about.html">About</a>
+<a href="${root_url}/about.html">About</a>
 |
-<a href="${rootUrl}/blog/rss.xml">RSS</a>
+<a href="${root_url}/blog/rss.xml">RSS</a>
 </p>
 </div>

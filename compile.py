@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import sys
 import re
 import os
@@ -8,8 +10,10 @@ import datetime
 import docutils.core
 from mako.lookup import TemplateLookup
 
+# TODO: Avoid using exec().
 SITE_PARAMS = {}
-execfile("config.py", SITE_PARAMS)
+with open("config.py") as f:
+    exec(f.read(), SITE_PARAMS)
 
 DOC_SOURCE_DIR = os.path.abspath("docsource")
 HTML_SOURCE_DIR = os.path.abspath("htmlsource")
@@ -74,6 +78,7 @@ class DocData(object):
 
 
 def write_to_file(path, data):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
     with codecs.open(path, mode='w', encoding="utf-8") as f:
         f.write(data)
     print("Wrote to {0}.".format(path))

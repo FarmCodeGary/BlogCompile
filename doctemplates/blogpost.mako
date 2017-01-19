@@ -23,7 +23,7 @@ ${doc.footer}
 <script type="text/javascript">
     var disqus_shortname = '${disqus_shortname}';
     var disqus_identifier = '${doc.guid}';
-    var disqus_url = '${remoteUrl}/${doc.outputPath}';
+    var disqus_url = '${remoteUrl}/${doc.output_path}';
     var disqus_title = '${doc.title}';
 
     /* * * DON'T EDIT BELOW THIS LINE * * */

@@ -3,18 +3,17 @@
 <channel>
         <title>${site_title}</title>
         <description>${site_description}</description>
-        <link>${remoteUrl}</link>
+        <link>${remote_url}</link>
 
-% for post in blogPosts:
+% for post in blog_posts:
         <item>
                 <title>${post.title}: ${post.teaser}</title>
                 <description>${post.body}</description>
-                <link>${remoteUrl}/${post.outputPath}</link>
+                <link>${remote_url}/${post.output_path}</link>
                 <guid>${post.guid}</guid>
-                <pubDate>${post.postedRssDateTime}</pubDate>
+                <pubDate>${post.posted_rss_datetime}</pubDate>
         </item>
 % endfor
- 
+
 </channel>
 </rss>
-

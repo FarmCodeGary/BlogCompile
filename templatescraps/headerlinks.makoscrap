@@ -1,2 +1,2 @@
-<link rel="stylesheet" href="${rootUrl}/style.css" type="text/css" />
-<link rel="alternate" type="application/rss+xml" title="${site_title} (RSS 2.0)" href="${rootUrl}/blog/rss.xml" />
+<link rel="stylesheet" href="${root_url}/style.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="${site_title} (RSS 2.0)" href="${root_url}/blog/rss.xml" />

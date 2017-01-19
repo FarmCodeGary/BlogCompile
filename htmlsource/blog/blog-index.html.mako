@@ -12,10 +12,10 @@
 <h2>All Posts:</h2>
 
 <table>
-% for post in blogPosts:
+% for post in blog_posts:
 <tr>
-<td><a href="${rootUrl}/${post.outputPath}">${post.title}</a></td>
-<td>${post.postedDateTerse}</td>
+<td><a href="${root_url}/${post.output_path}">${post.title}</a></td>
+<td>${post.posted_date_terse}</td>
 </tr>
 % endfor
 </table>
