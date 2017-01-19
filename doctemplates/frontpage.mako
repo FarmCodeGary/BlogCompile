@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${siteTitle}</title>
+<title>${site_title}</title>
 <%include file="headerlinks.makoscrap"/>
 </head>
 

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${doc.title} (${siteTitle})</title>
+<title>${doc.title} (${site_title})</title>
 <%include file="headerlinks.makoscrap"/>
 </head>
 <body>
@@ -21,10 +21,10 @@ ${doc.footer}
 <hr/>
 <div id="disqus_thread"></div>
 <script type="text/javascript">
-    var disqus_shortname = '${disqusShortname}';
+    var disqus_shortname = '${disqus_shortname}';
     var disqus_identifier = '${doc.guid}';
     var disqus_url = '${remoteUrl}/${doc.outputPath}';
-    var disqus_title = '${doc.title}';    
+    var disqus_title = '${doc.title}';
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
