@@ -11,14 +11,17 @@ import docutils.core
 from mako.lookup import TemplateLookup
 
 # TODO: Avoid using exec().
+# TODO: Move this logic into __main__ section or function.
 SITE_PARAMS = {}
 with open("config.py") as f:
     exec(f.read(), SITE_PARAMS)
 
+# TODO: Move these paths to config file.
 DOC_SOURCE_DIR = os.path.abspath("content")
 HTML_SOURCE_DIR = os.path.abspath("htmlsource")
 OUTPUT_DIR = os.path.abspath("output")
 
+# TODO: Move some of these to config files, as appropriate.
 TIMEZONE = "EST"
 VERBOSE_DATE_FORMAT = "%A, %B %-d, %Y"
 VERBOSE_DATETIME_FORMAT = VERBOSE_DATE_FORMAT+", %-I:%M %p"
@@ -35,6 +38,9 @@ TEMPLATE_LOOKUP = TemplateLookup(
 
 
 def list_all_dir_contents(base_dir_path):
+    """Generator iterating through all filenames (as relative paths under a
+    given directory).
+    """
     for dir_path, _, filenames in os.walk(base_dir_path):
         for filename in filenames:
             yield os.path.relpath(
@@ -42,8 +48,47 @@ def list_all_dir_contents(base_dir_path):
 
 
 class DocData(object):
+    """Class representing a document (blog post or page) loaded from a
+    reStructuredText source.
+
+    The instance of DocData will have as attributes all "parts" provided
+    by the docutils HTML writer, as documented here:
+    http://docutils.sourceforge.net/docs/api/publisher.html
+
+    The following attributes are also accessible:
+        doc_type            The document type (e.g. "page" or "blogpost") as
+                            dictated by source file extension.
+        guid                The document's unique identifier (stub), as
+                            dictated by the first part of the filename (before
+                            extension.)
+        output_filename     The filename where the output file will end up.
+        output_path         Relative path to the documents output location
+                            (including filename).
+        original_path       Path to the outputted RST source (when the config
+                            setting copy_rst is True.
+        teaser              Same as the RST document's subtitle.
+        dated               True if the document has a date attribute.
+        posted_datetime     Python datetime of post date.
+        posted_date_terse   String with post date in "terse" format.
+        posted_date_verbose String with post date in "verbose" format.
+        posted_rss_datetime String with post date/time in RSS-friendly format.
+    """
     def __init__(self, rst_string, doc_type, guid, output_filename,
                  output_path, original_path=None):
+        """Create a DocData from a string of reStructuredText input data.
+
+        Arguments:
+            rst_string      Raw input data in reStructuredText format.
+            doc_type        The document type ("blogpost" or "page")
+                            as specified by input file extension.
+            guid            The document's unique ID (stub), usually the base
+                            filename (the part before the extension).
+            output_filename The filename where the generated HTML will end up.
+            output_path     The relative path to the document's output location
+                            (including filename).
+            original_path   The path where a copy of the original source
+                            will be placed. (Default: None)
+        """
         self.doc_type = doc_type
         self.guid = guid
         self.output_filename = output_filename
@@ -71,6 +116,9 @@ class DocData(object):
         self.teaser = self.subtitle
 
     def __cmp__(self, other):
+        """Order with other DocDatas by date. (Earlier dates are "less than"
+        later dates.)
+        """
         return cmp(self.posted_datetime, other.posted_datetime)
 
     def __repr__(self):
@@ -78,6 +126,13 @@ class DocData(object):
 
 
 def write_to_file(path, data):
+    """Write data to a file with UTF-8 encoding, first creating any necessary
+    directories.
+
+    Arguments:
+        path    Full path to the file to be written.
+        data    Data to be written.
+    """
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with codecs.open(path, mode='w', encoding="utf-8") as f:
         f.write(data)
@@ -85,8 +140,12 @@ def write_to_file(path, data):
 
 
 def build_site(remote):
+    """Builds the website, reading reStructuredText source files and outputting
+    HTML. The remote argument specifies whether to generate version for local
+    testing or online deployment.
+    """
     if remote:
-        SITE_PARAMS["root_url"] = SITE_PARAMS["remoteUrl"]
+        SITE_PARAMS["root_url"] = SITE_PARAMS["remote_url"]
     else:
         SITE_PARAMS["root_url"] = SITE_PARAMS["local_url"]
     SITE_PARAMS["remote"] = remote
