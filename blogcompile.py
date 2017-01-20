@@ -15,7 +15,7 @@ SITE_PARAMS = {}
 with open("config.py") as f:
     exec(f.read(), SITE_PARAMS)
 
-DOC_SOURCE_DIR = os.path.abspath("docsource")
+DOC_SOURCE_DIR = os.path.abspath("content")
 HTML_SOURCE_DIR = os.path.abspath("htmlsource")
 OUTPUT_DIR = os.path.abspath("output")
 
